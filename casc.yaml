@@ -2,35 +2,51 @@ jenkins:
   securityRealm:
     local:
       allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "admin"
+        name: "admin"
+        properties:
+        - "apiToken"
+        - "mailer"
+        - "myView"
+        - preferredProvider:
+            providerId: "default"
+        - "timezone"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  numExecutors: 0
+  securityRealm:
+    local:
+      allowsSignup: false
       users:
         - id: ${JENKINS_ADMIN_ID}
           password: ${JENKINS_ADMIN_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
       permissions:
         - "Overall/Administer:admin"
         - "Overall/Read:authenticated"
+  clouds:
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost:
+          uri: "tcp://172.17.0.1:50000"
+        readTimeout: 60
+      name: "docker"
+      templates:
+      - connector: "attach"
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: "jenkins/slave:latest"
+        labelString: "basic-slave"
+        pullStrategy: PULL_ALWAYS
+        pullTimeout: 300
   remotingSecurity:
     enabled: true
-  # clouds:
-  #   docker:
-  #     name: "docker"
-  #     dockerApi:
-  #       dockerHost:
-  #         uri: "tcp://172.17.0.1:50000"
-  #         templates:
-  #         - labelString: "docker-agent"
-  #           dockerTemplateBase:
-  #             # TODO: pin sha256 or versions when using in production
-  #             image: "jenkins/agent"
-  #             environmentsString: |
-  #               hello=world
-  #               foo=bar
-  #             remoteFs: "/home/jenkins/agent"
-  #             connector:
-  #               attach:
-  #                 user: "jenkins"
-  #                 instanceCapStr: "10"
-  #                 retentionStrategy:
-  #                   idleMinutes: 1
 security:
   queueItemAuthenticator:
     authenticators:
@@ -39,6 +55,3 @@ security:
 unclassified:
     location:
           url: http://tiannaru.xyz:8080/
-
-# jobs:
-# - file: /var/jenkins_home/jobs.groovy
