@@ -5,11 +5,32 @@ jenkins:
       users:
         - id: ${JENKINS_ADMIN_ID}
           password: ${JENKINS_ADMIN_PASSWORD}
-  authorizationStrategy:
-    globalMatrix:
       permissions:
         - "Overall/Administer:admin"
         - "Overall/Read:authenticated"
+  remotingSecurity:
+    enabled: true
+  # clouds:
+  #   docker:
+  #     name: "docker"
+  #     dockerApi:
+  #       dockerHost:
+  #         uri: "tcp://172.17.0.1:50000"
+  #         templates:
+  #         - labelString: "docker-agent"
+  #           dockerTemplateBase:
+  #             # TODO: pin sha256 or versions when using in production
+  #             image: "jenkins/agent"
+  #             environmentsString: |
+  #               hello=world
+  #               foo=bar
+  #             remoteFs: "/home/jenkins/agent"
+  #             connector:
+  #               attach:
+  #                 user: "jenkins"
+  #                 instanceCapStr: "10"
+  #                 retentionStrategy:
+  #                   idleMinutes: 1
 security:
   queueItemAuthenticator:
     authenticators:
@@ -18,3 +39,6 @@ security:
 unclassified:
     location:
           url: http://tiannaru.xyz:8080/
+
+# jobs:
+# - file: /var/jenkins_home/jobs.groovy
