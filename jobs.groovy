@@ -1,8 +1,16 @@
-multibranchPipelineJob('configuration-as-code') {
-    branchSources {
-        git {
-            id = 'configuration-as-code'
-                remote('https://github.com/jenkinsci/configuration-as-code-plugin.git')
+pipelineJob('whisper') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/tiannaru/whisper.git')
+                    }
+                    branch('*/main')
+                }
+            }
+            lightweight()
         }
     }
 }
+

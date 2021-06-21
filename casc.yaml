@@ -3,7 +3,7 @@ jenkins:
     local:
       allowsSignup: false
       enableCaptcha: false
-      users:
+      u;Fsers:
       - id: "admin"
         name: "admin"
         properties:
@@ -37,14 +37,18 @@ jenkins:
         readTimeout: 60
       name: "docker"
       templates:
-      - connector: "attach"
+      - labelString: "ci-python"
+        connector: "attach"
         dockerTemplateBase:
+          image: "tiannaru/python-lint:latest"
           cpuPeriod: 0
           cpuQuota: 0
-          image: "jenkins/slave:latest"
-        labelString: "basic-slave"
-        pullStrategy: PULL_ALWAYS
-        pullTimeout: 300
+      - labelString: "cd"
+        connector: "attach"
+        dockerTemplateBase:
+          image: "tiannaru/alpine-cd:latest"
+          cpuPeriod: 0
+          cpuQuota: 0
   remotingSecurity:
     enabled: true
 security:
@@ -54,4 +58,6 @@ security:
         strategy: triggeringUsersAuthorizationStrategy
 unclassified:
     location:
-          url: http://tiannaru.xyz:8080/
+      url: http://tiannaru.xyz:8080/
+jobs:
+- file: /var/jenkins_home/jobs.groovy
