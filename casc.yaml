@@ -4,8 +4,8 @@ credentials:
     - credentials:
       - usernamePassword:
           description: "Github creds"
-          id: "ghcred"
-          password: ${GITHUB_PWD}
+          id: "ghusertoken"
+          password: ${GITHUB_TOKEN}
           scope: GLOBAL
           username: "tiannaru"
       - string:
@@ -73,7 +73,7 @@ security:
         strategy: triggeringUsersAuthorizationStrategy
 unclassified:
   location:
-    url: http://404n-amgasit.ro:8080/
+    url: ${JENKINS_URL}
   githubpluginconfig:
     configs:
     - name: "InHouse GitHub EE"
