@@ -5,14 +5,14 @@ credentials:
       - usernamePassword:
           description: "Github creds"
           id: "ghcred"
-          password: "{AQAAABAAAAAQZPS+jBH/7R+tXmWJWayLQE0lYitM26sdKtwignRWBkg=}"
+          password: ${GITHUB_PWD}
           scope: GLOBAL
           username: "tiannaru"
       - string:
           description: "gh token"
           id: "ghtoken"
           scope: GLOBAL
-          secret: "{AQAAABAAAAAQpg53ZTrHUqUzUBlM05s+LA0hh9+gR1HvtAaJcQdVqxE=}"
+          secret: ${GITHUB_TOKEN}
 jenkins:
   securityRealm:
     local:
@@ -73,12 +73,12 @@ security:
         strategy: triggeringUsersAuthorizationStrategy
 unclassified:
   location:
-    url: http://tiannaru.xyz:8080/
+    url: http://404n-amgasit.ro:8080/
   githubpluginconfig:
     configs:
     - name: "InHouse GitHub EE"
       apiUrl: "https://github.domain.local/api/v3"
-      credentialsId: "ghcred"
+      credentialsId: "ghtoken"
       manageHooks: true
 jobs:
 - file: /var/jenkins_home/jobs.groovy
