@@ -1,9 +1,9 @@
-multibranchPipelineJob('whisper') {
+multibranchPipelineJob('backend-boilerplate') {
     branchSources {
         github {
-            id('whisper')
+            id('backend-boilerplate')
             repoOwner('tiannaru')
-            repository('whisper')
+            repository('backend-boilerplate')
             scanCredentialsId('ghusertoken')
         }
     }

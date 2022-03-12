@@ -1,3 +1,11 @@
+# jcasc
+My config for Jenkins
+Builds into a Dockerfile.
+Used on the infrastructure from https://github.com/tiannaru/subsistence_infrastructure.
+
+## TODO
+- create a pipeline for this that at least builds and pushes the image lmao
+
 ### Build
 ```
 docker build -t jenkins:jcasc 

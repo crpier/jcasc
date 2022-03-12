@@ -7,6 +7,7 @@ credentials:
           id: "ghusertoken"
           password: ${GITHUB_TOKEN}
           scope: GLOBAL
+          # TODO get this from env var
           username: "tiannaru"
       - string:
           description: "gh token"
